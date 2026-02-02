@@ -1,3 +1,294 @@
-/* You can add global styles to this file, and also import other style files */
-
+/* OnSocialy - Unique Avant-Garde Design System */
 @import "tailwindcss";
+
+/* ===== RADICAL COLOR PALETTE ===== */
+:root {
+  /* Neon Accents */
+  --neon-lime: #c6f135;
+  --neon-cyan: #00fff0;
+  --neon-magenta: #ff00ff;
+  --neon-orange: #ff6b35;
+
+  /* Dark Base */
+  --void-black: #050507;
+  --surface-dark: #0d0d12;
+  --surface-card: #12121a;
+
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --text-accent: var(--neon-lime);
+
+  /* Gradients */
+  --gradient-neon: linear-gradient(135deg, var(--neon-lime) 0%, var(--neon-cyan) 50%, var(--neon-magenta) 100%);
+  --gradient-warm: linear-gradient(135deg, var(--neon-orange) 0%, var(--neon-magenta) 100%);
+  --gradient-mesh: radial-gradient(at 40% 20%, hsla(82, 89%, 58%, 0.15) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, hsla(180, 100%, 50%, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, hsla(300, 100%, 50%, 0.1) 0px, transparent 50%);
+}
+
+/* ===== BASE RESET ===== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--void-black);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===== FOCUS STATES ===== */
+:focus-visible {
+  outline: 2px solid var(--neon-lime);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--neon-lime);
+  color: var(--void-black);
+}
+
+/* ===== CUSTOM SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--void-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon-lime);
+  border-radius: 3px;
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+/* Neon Text */
+.neon-text {
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Brutalist Border */
+.brutal-border {
+  border: 3px solid var(--neon-lime);
+}
+
+/* Glitch Effect Container */
+.glitch-container {
+  position: relative;
+}
+
+/* Morphing Card */
+.morph-card {
+  background: var(--surface-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.morph-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-mesh);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.morph-card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+.morph-card:hover::before {
+  opacity: 1;
+}
+
+/* Primary CTA - Brutalist Style */
+.btn-brutal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  background: var(--neon-lime);
+  color: var(--void-black);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+.btn-brutal:hover {
+  background: var(--neon-cyan);
+  transform: translate(-4px, -4px);
+  box-shadow: 4px 4px 0 var(--neon-magenta);
+}
+
+.btn-brutal:active {
+  transform: translate(0, 0);
+  box-shadow: none;
+}
+
+/* Outline Button */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: transparent;
+  color: var(--text-primary);
+  font-weight: 600;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  border-color: var(--neon-lime);
+  color: var(--neon-lime);
+}
+
+/* Section */
+.section {
+  padding: 8rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  margin-bottom: 1.5rem;
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(198, 241, 53, 0.3),
+      0 0 60px rgba(198, 241, 53, 0.1);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(198, 241, 53, 0.5),
+      0 0 80px rgba(198, 241, 53, 0.2);
+  }
+}
+
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* ===== GRID MESH BACKGROUND ===== */
+.mesh-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: var(--gradient-mesh);
+  z-index: -1;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .section {
+    padding: 5rem 1.5rem;
+  }
+
+  .btn-brutal {
+    padding: 0.875rem 2rem;
+    font-size: 0.9rem;
+  }
+}
