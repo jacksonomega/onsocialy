@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
+import { SeoService } from '../../../services/seo.service';
 
 @Component({
   selector: 'app-terms',
@@ -140,6 +141,17 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     }
   `]
 })
-export class TermsComponent {
+export class TermsComponent implements OnInit {
   updatedDate = new Date().toLocaleDateString();
+  private seoService = inject(SeoService);
+
+  ngOnInit(): void {
+    this.seoService.setSeoData({
+      title: 'Términos y Condiciones',
+      description: 'Conoce los Términos y Condiciones de uso de los servicios de diseño web de OnSocialy.',
+      keywords: ['términos legales', 'condiciones de uso', 'contrato web', 'onsocialy'],
+      canonicalUrl: '/terminos'
+    });
+  }
 }
+

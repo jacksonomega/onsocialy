@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
+import { SeoService } from '../../../services/seo.service';
 
 @Component({
   selector: 'app-privacy',
@@ -156,6 +157,16 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     }
   `]
 })
-export class PrivacyComponent {
+export class PrivacyComponent implements OnInit {
   updatedDate = new Date().toLocaleDateString();
+  private seoService = inject(SeoService);
+
+  ngOnInit(): void {
+    this.seoService.setSeoData({
+      title: 'Política de Privacidad',
+      description: 'Consulta nuestra Política de Privacidad para saber cómo protegemos tus datos personales en OnSocialy.',
+      keywords: ['privacidad', 'protección de datos', 'rgpd', 'onsocialy'],
+      canonicalUrl: '/privacidad'
+    });
+  }
 }

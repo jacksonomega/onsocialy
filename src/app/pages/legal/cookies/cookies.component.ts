@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
+import { SeoService } from '../../../services/seo.service';
 
 @Component({
   selector: 'app-cookies',
@@ -139,6 +140,17 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     }
   `]
 })
-export class CookiesComponent {
+export class CookiesComponent implements OnInit {
   updatedDate = new Date().toLocaleDateString();
+  private seoService = inject(SeoService);
+
+  ngOnInit(): void {
+    this.seoService.setSeoData({
+      title: 'Política de Cookies',
+      description: 'Información sobre el uso de cookies en OnSocialy y cómo configurarlas.',
+      keywords: ['cookies', 'política de cookies', 'privacidad web', 'onsocialy'],
+      canonicalUrl: '/cookies'
+    });
+  }
 }
+
