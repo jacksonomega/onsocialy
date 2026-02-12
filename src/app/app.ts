@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header';
 import { FooterComponent } from './components/footer/footer';
+import { SeoService } from './core/services/seo.service';
 
 @Component({
   selector: 'app-root',
@@ -14,4 +15,10 @@ import { FooterComponent } from './components/footer/footer';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App { }
+export class App implements OnInit {
+  private readonly seoService = inject(SeoService);
+
+  ngOnInit(): void {
+    this.seoService.setSeoData({});
+  }
+}

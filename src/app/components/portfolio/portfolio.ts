@@ -422,6 +422,22 @@ export class PortfolioComponent {
       year: '2026',
       tags: ['Web', 'Cantautor'],
       url: 'https://miguelricote.com'
+    },
+    {
+      name: 'Tiago Felipe',
+      category: 'Música',
+      emoji: 'music',
+      year: '2026',
+      tags: ['Web', 'Cantautor'],
+      url: 'https://tiagofelipe.onsocialy.com'
+    },
+    {
+      name: 'Rayner Melth',
+      category: 'Música',
+      emoji: 'music',
+      year: '2026',
+      tags: ['Web', 'Cantautor'],
+      url: 'https://raynermelth.onsocialy.com'
     }
   ];
 

@@ -12,7 +12,7 @@ export const SEO_CONFIG = {
         'onsocialy'
     ],
     baseUrl: 'https://onsocialy.com',
-    defaultImage: 'https://onsocialy.com/assets/images/og-default.jpg', // Placeholder, user needs to provide this
+    defaultImage: 'https://onsocialy.com/android-chrome-512x512.png', // Using existing public image
     social: {
         twitter: '@onsocialy', // Placeholder
         instagram: '@onsocialy' // Placeholder

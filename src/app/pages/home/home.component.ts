@@ -3,7 +3,7 @@ import { HeroComponent } from '../../components/hero/hero';
 import { ServicesComponent } from '../../components/services/services';
 import { PortfolioComponent } from '../../components/portfolio/portfolio';
 import { ContactComponent } from '../../components/contact/contact';
-import { SeoService } from '../../services/seo.service';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-home',
@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
       '@context': 'https://schema.org',
       '@type': 'ProfessionalService',
       'name': 'OnSocialy',
-      'image': 'https://onsocialy.com/assets/images/og-default.jpg',
+      'image': 'https://onsocialy.com/android-chrome-512x512.png',
       'description': 'Diseño web profesional y exclusivo para influencers y creadores de contenido.',
       'url': 'https://onsocialy.com',
       'telephone': '', // Add if available

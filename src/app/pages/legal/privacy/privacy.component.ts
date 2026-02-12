@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
-import { SeoService } from '../../../services/seo.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 @Component({
   selector: 'app-privacy',
