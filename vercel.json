@@ -1,0 +1,12 @@
+{
+    "rewrites": [
+        {
+            "source": "/raynermelth/:path*",
+            "destination": "https://raynermelth.onsocialy.com/:path*"
+        },
+        {
+            "source": "/tiagofelipe/:path*",
+            "destination": "https://tiagofelipe.onsocialy.com/:path*"
+        }
+    ]
+}
