@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
+import { Router } from '@angular/router';
 import { SEO_CONFIG } from '../seo.config';
 
 export interface SeoData {
@@ -24,6 +25,7 @@ export class SeoService {
     private readonly meta = inject(Meta);
     private readonly title = inject(Title);
     private readonly document = inject(DOCUMENT);
+    private readonly router = inject(Router);
 
     constructor() { }
 
@@ -32,7 +34,7 @@ export class SeoService {
         this.updateMetaTags(data);
         this.updateOpenGraphTags(data);
         this.updateTwitterCard(data);
-        this.setCanonicalUrl(data.canonicalUrl || data.url || SEO_CONFIG.baseUrl);
+        this.setCanonicalUrl(data.canonicalUrl || data.url);
         // JSON-LD is handled separately or we can add a method here if needed
     }
 
@@ -55,12 +57,14 @@ export class SeoService {
     }
 
     public updateOpenGraphTags(data: SeoData): void {
-        const url = data.url ? `${SEO_CONFIG.baseUrl}${data.url}` : SEO_CONFIG.baseUrl;
+        const path = data.url || this.router.url;
+        const fullUrl = this.buildUrl(path);
+        
         const navTitle = data.title || SEO_CONFIG.defaultTitle;
         const description = data.description || SEO_CONFIG.defaultDescription;
         const image = data.image || SEO_CONFIG.defaultImage;
 
-        this.meta.updateTag({ property: 'og:url', content: url });
+        this.meta.updateTag({ property: 'og:url', content: fullUrl });
         this.meta.updateTag({ property: 'og:type', content: data.type || SEO_CONFIG.type });
         this.meta.updateTag({ property: 'og:title', content: navTitle });
         this.meta.updateTag({ property: 'og:description', content: description });
@@ -70,7 +74,12 @@ export class SeoService {
     }
 
     public updateTwitterCard(data: SeoData): void {
-        const navTitle = data.title || SEO_CONFIG.defaultTitle;
+        let navTitle = data.title || SEO_CONFIG.defaultTitle;
+        // Truncate for twitter if necessary or just replace
+        if (data.title) {
+            navTitle = SEO_CONFIG.titleTemplate.replace('%s', data.title);
+        }
+        
         const description = data.description || SEO_CONFIG.defaultDescription;
         const image = data.image || SEO_CONFIG.defaultImage;
 
@@ -82,7 +91,7 @@ export class SeoService {
         this.meta.updateTag({ name: 'twitter:image', content: image });
     }
 
-    public setCanonicalUrl(url: string): void {
+    public setCanonicalUrl(url?: string): void {
         const link: HTMLLinkElement = this.document.querySelector('link[rel="canonical"]')
             || this.document.createElement('link');
 
@@ -91,9 +100,23 @@ export class SeoService {
             this.document.head.appendChild(link);
         }
 
-        // Ensure full URL
-        const fullUrl = url.startsWith('http') ? url : `${SEO_CONFIG.baseUrl}${url.startsWith('/') ? url : '/' + url}`;
+        const path = url || this.router.url;
+        const fullUrl = this.buildUrl(path);
         link.setAttribute('href', fullUrl);
+    }
+
+    private buildUrl(path: string): string {
+        if (path.startsWith('http')) return path;
+        
+        // Try to use true canonical host from document if possible, otherwise fallback to SEO_CONFIG
+        let base = SEO_CONFIG.baseUrl;
+        try {
+            if (this.document.location && this.document.location.origin && this.document.location.origin !== 'null') {
+                base = this.document.location.origin;
+            }
+        } catch(e) {}
+        
+        return `${base}${path.startsWith('/') ? path : '/' + path}`;
     }
 
     public setJsonLd(data: any): void {
